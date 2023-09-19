@@ -1,7 +1,8 @@
 version: '3.9'
 
 services:
-
+  
+  #server
   webserver:
     image: nginx
     container_name: "nginx"
@@ -10,19 +11,21 @@ services:
     volumes:
       - ./src:/usr/share/nginx/html
 
-  services:
-### Postgres Database ###
+  #database
   postgres:
-    image: postgres:10.4
+    container_name: postgres
+    image: postgres:14.0
+    build: .
     ports:
-      - "35000:5432"
-    environment: 
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: db
-### Postgres Adminer ###
+      - 8080:8080
+    environment:
+      - DATABASE_URL=jdbc:postgresql://jpw:5432/postgres
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+  
+  #database admin
   postgres_admin:
-    image: dpage/pgadmin4:4.28
+    image: dpage/pgadmin4
     depends_on:
       - postgres
     environment: 
@@ -30,16 +33,17 @@ services:
       PGADMIN_DEFAULT_PASSWORD: password
     ports:
       - "5050:80"
-### API Spring Boot ###
+
+  ### API Spring Boot ###
   api:
     build:
-      dockerfile: Dockerfile
-      context: /
+      dockerfile: dockerfile
+      context: .
     depends_on: 
       - postgres
     environment: 
-      DATABASE_URL: postgresql://postgres:5432/db
-      DATABASE_USER: user
-      DATABASE_PASSWORD: password
+      DATABASE_URL: jdbc:postgresql://jpw:5432/postgres
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
     ports:
       - "8080:3100"
