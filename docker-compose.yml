@@ -12,10 +12,9 @@ services:
       - ./src:/usr/share/nginx/html
 
   #database
-  postgres:
-    container_name: postgres
-    image: postgres:14.0
-    build: .
+  java_db:
+    container_name: java_db
+    image: postgres:12
     ports:
       - 9090:9090
     environment:
@@ -24,12 +23,14 @@ services:
       POSTGRES_DB: postgres
     volumes:
       - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata: {}
   
   #database admin
   postgres_admin:
     image: dpage/pgadmin4
     depends_on:
-      - postgres
+      - java_db
     environment: 
       PGADMIN_DEFAULT_EMAIL: admin@admin.de
       PGADMIN_DEFAULT_PASSWORD: password
@@ -42,10 +43,10 @@ services:
       dockerfile: dockerfile
       context: .
     depends_on: 
-      - postgres
+      - java_db
     environment: 
       DATABASE_URL: jdbc:postgresql://jpw:5432/postgres
       DATABASE_USER: postgres
-      DATABASE_PASSWORD: password
+      DATABASE_PASSWORD: postgres
     ports:
       - "8080:3100"
