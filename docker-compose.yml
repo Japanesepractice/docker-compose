@@ -34,16 +34,3 @@ services:
     ports:
       - "5050:80"
 
-  ### API Spring Boot ###
-  api:
-    build:
-      dockerfile: dockerfile
-      context: .
-    depends_on: 
-      - pg_container
-    environment: 
-      DATABASE_URL: jdbc:postgresql://jpw:5432/postgres
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: password
-    ports:
-      - "8080:3100"
