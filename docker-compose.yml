@@ -42,7 +42,7 @@ services:
     depends_on: 
       - postgresqldb
     environment: 
-      DATABASE_URL: postgresql://139.144.112.173:5432/japanesepractice
+      DATABASE_URL: jdbc:postgresql://139.144.112.173:5432/japanesepractice
       DATABASE_USER: postgres
       DATABASE_PASSWORD: Abcd23625@#@
     ports:
