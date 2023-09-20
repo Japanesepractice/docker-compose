@@ -18,12 +18,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=japanesepractice
-      - POSTGRES_PASSWORD=Abcd23625@#@
-      - POSTGRES_HOST_AUTH_METHOD=trust
-       
-     
+        POSTGRES_PASSWORD: postgres_password
   
   #database admin
   postgres_admin:
