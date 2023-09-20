@@ -37,7 +37,7 @@ services:
  ### API Spring Boot ###
   api:
     build:
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
       context: /
     depends_on: 
       - postgresqldb
