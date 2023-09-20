@@ -45,7 +45,8 @@
 
 						<div class="p-2 col-12 col-md-3 col-sm-4 my-2" th:each="ebook : ${ebooks}">
 							<div class="card">
-								<img th:src="@{/resources/image/ebooks/} + ${ebook.id} +'.png'" class="card-img-top w-auto ebook-img" alt="book's image">
+								<!--<img th:src="@{/resources/image/ebooks/} + ${ebook.id} +'.png'" class="card-img-top w-auto ebook-img" alt="book's image">-->
+								<img th:src="@{/resources/image/pdf.png}" class="card-img-top w-auto ebook-img" alt="book's image">
 								<div class="card-body">
 									<h5 th:if="${#strings.equals(#locale, 'en')}" class="card-title text-nowrap overflow-hidden" th:text="${ebook.bookTitle}"></h5>
 									<h5 th:if="${#strings.equals(#locale, 'ja')}" class="card-title text-nowrap overflow-hidden" th:text="${ebook.bookTitleKana}"></h5>
