@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,12 +54,16 @@ public class EbookService {
 		File file = new File("");
 		String absolutePath = file.getAbsolutePath();
 		String imgDir = absolutePath + "\\target\\classes\\static\\image\\ebooks\\";
+		String imgDirSrc = absolutePath + "\\src\\main\\resources\\static\\image\\ebooks\\";
 		String pdfDir = absolutePath + "\\target\\classes\\static\\pdf\\ebooks\\";
 
 		MultipartFile bookImage = ebookForm.getBookImage();
 		if (!bookImage.isEmpty()) {
 			String[] ext = bookImage.getOriginalFilename().split("\\.");
-			bookImage.transferTo(new File(imgDir + ebookForm.getId() + "." + ext[ext.length - 1]));
+			bookImage.transferTo(new File(imgDirSrc + ebookForm.getId() + "." + ext[ext.length - 1]));
+			File copied = new File(imgDirSrc + ebookForm.getId() + "." + ext[ext.length - 1]);
+			Files.copy(copied.toPath(), new File(imgDir + ebookForm.getId() + "." + ext[ext.length - 1]).toPath(),
+					StandardCopyOption.REPLACE_EXISTING);
 		}
 
 		MultipartFile pdf = ebookForm.getBookPdf();
