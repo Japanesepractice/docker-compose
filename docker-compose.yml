@@ -18,10 +18,11 @@ services:
     ports:
       - "5432:5432"
     environment:
-       POSTGRES_PASSWORD: Abcd23625@#@
        POSTGRES_USER: postgres
        POSTGRES_DB: postgres
        POSTGRES_HOST_AUTH_METHOD: trust
+       POSTGRES_PASSWORD: Abcd23625@#@
+     
   
   #database admin
   postgres_admin:
