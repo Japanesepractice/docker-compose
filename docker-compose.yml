@@ -12,19 +12,24 @@ services:
       - ./src:/usr/share/nginx/html
 
    #database
-  db:
-    image: postgres:12-alpine
+  postgresqldb:
+    image: postgres
     restart: always
     ports:
       - "5432:5432"
     environment:
-        POSTGRES_PASSWORD: postgres_password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=japanesepractice
+      - POSTGRES_PASSWORD=Abcd23625@#@
+      - POSTGRES_HOST_AUTH_METHOD=trust
+       
+     
   
   #database admin
   postgres_admin:
     image: dpage/pgadmin4
     depends_on:
-      - db
+      - postgresqldb
     environment: 
      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
      - PGADMIN_DEFAULT_PASSWORD=password
@@ -37,7 +42,7 @@ services:
       dockerfile: dockerfile
       context: .
     depends_on: 
-      - db
+      - postgresqldb
     environment: 
      - DATABASE_URL=jdbc:postgresql://139.144.112.173:5432/japanesepractice
      - DATABASE_USERNAME=postgres
