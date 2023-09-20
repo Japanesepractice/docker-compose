@@ -12,8 +12,8 @@ services:
       - ./src:/usr/share/nginx/html
 
    #database
-  postgresqldb:
-    image: postgres
+  db:
+    image: postgres:12-alpine
     restart: always
     ports:
       - "5432:5432"
@@ -29,7 +29,7 @@ services:
   postgres_admin:
     image: dpage/pgadmin4
     depends_on:
-      - postgresqldb
+      - db
     environment: 
      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
      - PGADMIN_DEFAULT_PASSWORD=password
@@ -42,7 +42,7 @@ services:
       dockerfile: dockerfile
       context: .
     depends_on: 
-      - postgresqldb
+      - db
     environment: 
      - DATABASE_URL=jdbc:postgresql://139.144.112.173:5432/japanesepractice
      - DATABASE_USERNAME=postgres
