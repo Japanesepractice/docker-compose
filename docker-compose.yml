@@ -43,7 +43,7 @@ services:
       - postgresqldb
     environment: 
       DATABASE_URL: jdbc:postgresql://139.144.112.173:5432/japanesepractice
-      DATABASE_USER: postgres
+      DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: Abcd23625@#@
     ports:
       - "8080:80"
